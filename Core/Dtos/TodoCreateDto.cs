@@ -2,7 +2,7 @@
 
 namespace Core.Dtos
 {
-	public class TodoCreate
+	public class TodoCreateDto
 	{
 		[Required]
 		public string Name { get; set; }
