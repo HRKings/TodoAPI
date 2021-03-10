@@ -3,19 +3,17 @@ WORKDIR /app
 
 LABEL author="Helton Reis"
 
-ENV DOCKERIZE_VERSION v0.6.1
-RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
-	&& tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
-	&& rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
-
-RUN chown -R www-data:www-data /var/www
-RUN chown -R www-data:www-data /app
-
-RUN usermod -u 1000 www-data
-
-USER www-data
-
 RUN dotnet tool install --global dotnet-ef
-ENV PATH /var/www/.dotnet/tools:$PATH
+ENV PATH /root/.dotnet/tools:$PATH
 
-ENTRYPOINT ["./entrypoint.sh"]
+
+COPY . .
+
+RUN cd Core && dotnet restore; cd .. \
+	&& cd Infrastructure && dotnet restore; cd .. \
+	&& cd API && dotnet restore; npm install; cd ..
+
+EXPOSE 5000
+EXPOSE 5001
+
+ENTRYPOINT ["./entrypoint.prod.sh"]
