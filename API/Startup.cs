@@ -26,8 +26,7 @@ namespace API
         }
 
         public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
+        
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
@@ -69,11 +68,22 @@ namespace API
                 c.IncludeXmlComments(xmlPath);
             });
 
-            services.AddDbContext<PostgresContext>(
-                options => options.UseNpgsql(
-                    Environment.GetEnvironmentVariable("DATABASE") ?? "Host=localhost;Database=challenge;Username=postgres;Password="));
-			
-            services.AddScoped(typeof(ITodoRepository), typeof(TodoRepository));
+            // If the variable is set to EF, add the DB context and EF repository
+            if ((Environment.GetEnvironmentVariable("ORM") ?? "EF") == "EF")
+            {
+                services.AddDbContext<PostgresContext>(
+                    options => options.UseNpgsql(
+                        Environment.GetEnvironmentVariable("DATABASE") 
+                        ?? "Host=localhost;Database=challenge;Username=postgres;Password="));
+
+                services.AddScoped(typeof(ITodoRepository), typeof(TodoRepository));
+            }
+            else
+            {
+                // if the variable is the to anything else, initialize as Dapper
+                services.AddScoped(typeof(ITodoRepository), typeof(TodoDapperRepository));
+            }
+
             services.AddScoped(typeof(IUserRepository), typeof(UserRepository));
             
             services.AddAuthentication(x =>

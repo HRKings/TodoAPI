@@ -33,8 +33,9 @@ services:
       - .:/app
     environment:
       - DATABASE=Host=postgres-service;Database=postgres;Username=postgres;Password=password
-      - JWT_SECRET=tVbhlG?sP0qv?lvyVP#4#yyZBQ61qCBTU7vxd0&#dfA$xP2p2ppWdfRzbYLbA73iJhvC7qb95q6&ufpaVOqRH6!bSODj&mk$5jct
+      - JWT_SECRET=U0wwLslwf8SAYdxMDZwPMraY7cT2WhNHC7oT7uCqLqYMoPbF0SLcIKmuKdpsDpSWNNFySMHZsj1zVGTBoLYR3vtPUFpMWZU7uate
       - ASPNETCORE_ENVIRONMENT=Development
+      - ORM="EF"
     depends_on:
       - postgres-service
     networks:
