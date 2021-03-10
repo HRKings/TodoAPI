@@ -21,21 +21,23 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Core.Models.Todo", b =>
                 {
-                    b.Property<bool>("Completed")
-                        .HasColumnType("boolean")
-                        .HasColumnName("completed");
-
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasColumnName("id")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn);
 
+                    b.Property<bool>("Completed")
+                        .HasColumnType("boolean")
+                        .HasColumnName("completed");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(80)
                         .HasColumnType("character varying(80)")
                         .HasColumnName("name");
+
+                    b.HasKey("Id");
 
                     b.ToTable("todos");
                 });

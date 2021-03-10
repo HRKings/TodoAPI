@@ -18,6 +18,7 @@ namespace Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_todos", x => x.id);
                 });
         }
 
