@@ -35,7 +35,7 @@ services:
       - DATABASE=Host=postgres-service;Database=postgres;Username=postgres;Password=password
       - JWT_SECRET=U0wwLslwf8SAYdxMDZwPMraY7cT2WhNHC7oT7uCqLqYMoPbF0SLcIKmuKdpsDpSWNNFySMHZsj1zVGTBoLYR3vtPUFpMWZU7uate
       - ASPNETCORE_ENVIRONMENT=Development
-      - ORM="EF"
+      - ORM=EF
     depends_on:
       - postgres-service
     networks:
