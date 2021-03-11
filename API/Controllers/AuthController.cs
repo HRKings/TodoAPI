@@ -21,7 +21,7 @@ namespace API.Controllers
 		{
 			try
 			{
-				var userExists = new UserRepository().GetByEmail(user.Email);
+				var userExists = repository.GetByEmail(user.Email);
 
 				if (userExists == null)
 					return new BadRequestObjectResult(new {Message = "Email and/or password is invalid."});
