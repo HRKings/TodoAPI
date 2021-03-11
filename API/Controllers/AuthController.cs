@@ -35,7 +35,7 @@ namespace API.Controllers
 				return new OkObjectResult(new 
 				{
 					Token = token,
-					User = userExists
+					User = userExists.Name
 				});
 			}
 			catch (Exception)
